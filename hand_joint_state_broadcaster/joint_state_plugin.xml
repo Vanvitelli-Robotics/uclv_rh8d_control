@@ -1,0 +1,7 @@
+<library path="hand_joint_state_broadcaster">
+  <class name="hand_joint_state_broadcaster/HandJointStateBroadcaster" type="hand_joint_state_broadcaster::HandJointStateBroadcaster" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    The hand joint state broadcaster publishes the current states from ros2_control system.
+  </description>
+  </class>
+</library>

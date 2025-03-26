@@ -1,0 +1,44 @@
+/rh8dl/controller_manager:
+  ros__parameters:
+    update_rate: 300 # Hz
+
+    hand_joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    hand_joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+/rh8dl/hand_joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - forearm:1--base:1
+      - palm_axis:1--forearm:1
+      - Index_Proximal--palmL:1
+      - Middle_Proximal--palmL:1
+      - palmL:1--palm_axis:1
+      - Ring_Proximal--palmL:1
+      - Thumb_axis--palmL:1
+      - Small_Proximal--palmL:1
+    extra_joints:
+      - Index_Middle--Index_Proximal
+      - Index_Distal--Index_Middle
+      - Small_Middle--Small_Proximal
+      - Small_Distal--Small_Middle
+      - Ring_Middle--Ring_Proximal
+      - Ring_Distal--Ring_Middle
+      - Thumb_Methacarpal--Thumb_axis
+      - Thumb_Proximal--Thumb_Methacarpal
+      - Thumb_Distal--Thumb_Proximal
+      - Middle_Middle--Middle_Proximal
+      - Middle_Distal--Middle_Middle
+
+/rh8dl/hand_joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - forearm:1--base:1
+      - palm_axis:1--forearm:1
+      - palmL:1--palm_axis:1
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
