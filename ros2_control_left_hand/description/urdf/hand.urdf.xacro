@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="RH8D">
+
+  <!-- macro ros2_control for hand-->
+  <xacro:include filename="$(find ros2_control_left_hand)/ros2_control/ros2_control_hand.xacro"/>
+  <!-- macro ros2_control for fingertip_sensors-->
+  <xacro:include filename="$(find ros2_control_left_hand)/ros2_control/ros2_control_sensors.xacro"/>
+  
+  
+  <!-- xacro parameters-->
+  <xacro:arg name="name" default="left_hand"/>
+  <xacro:arg name="serial_port" default="/dev/ttyUSB0"/>          <!-- hand serial port USB0 -->
+  <xacro:arg name="serial_port_sensors" default="/dev/ttyUSB1"/>  <!-- sensors serial port USB1-->
+  <xacro:arg name="baudrate" default="1000000"/>
+  <xacro:arg name="protocol_version" default="2.0"/>
+  <xacro:arg name="active_palm_sensor" default="true"/>
+
+  <!-- fingertip sensors xacro macro-->
+  <xacro:ros2_control_force_sensors
+    serial_port ="$(arg serial_port_sensors)"
+    baudrate="$(arg baudrate)">
+  </xacro:ros2_control_force_sensors>    
+  
+  <!-- hand xacro macro-->
+  <xacro:ros2_control_hand
+    name="$(arg name)"
+    serial_port ="$(arg serial_port)"
+    baudrate="$(arg baudrate)"
+    protocol_version="$(arg protocol_version)"
+    active_palm_sensor="$(arg active_palm_sensor)">
+  </xacro:ros2_control_hand>
+
+</robot>

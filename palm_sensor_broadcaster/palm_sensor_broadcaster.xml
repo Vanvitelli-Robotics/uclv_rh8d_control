@@ -1,0 +1,8 @@
+<library path="palm_sensor_broadcaster">
+  <class name="palm_sensor_broadcaster/PalmSensorBroadcaster"
+         type="palm_sensor_broadcaster::PalmSensorBroadcaster" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    This controller publishes the readings of distance interface from palm sensor as double value.
+  </description>
+  </class>
+</library>

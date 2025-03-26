@@ -1,0 +1,47 @@
+proportional:
+  state_interface_name: {
+    type: string,
+    default_value: "",
+    description: "Specifies state_interface_name used by the proportional.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+    }
+  }
+  command_interface_name: {
+    type: string,
+    default_value: "",
+    description: "Specifies command_interface_name used by the proportional.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+    }
+  }
+  command_interface_type: {
+    type: string,
+    default_value: "",
+    description: "Name of the interface used by the proportional for writing commands to the hardware.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+    }
+  }
+  p_gain: {
+    type: double,
+    default_value: 0.0,
+    description: "Proportional gain.",
+  }
+  is_chained_mod: {
+    type: bool,
+    default_value: false,
+    description: "Set if the proportional is in a chained mode control. 
+    Param next_controller_name has to be set."
+  }   
+  next_controller_name: {
+    type: string,
+    default_value: "",
+    description: "Name of the next controller in the chain of controllers.",
+    read_only: true,
+  }
+  
+  

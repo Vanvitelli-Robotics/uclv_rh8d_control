@@ -1,0 +1,75 @@
+slipping_avoidance:
+  state_interface_name: {
+    type: string,
+    default_value: "",
+    description: "Specifies state_interface_names used by the slipping_avoidance.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+    }
+  }
+  state_interface_type:
+    force:
+      x: {
+        type: string,
+        default_value: "",
+        description: "Name of the state interface with force values on 'x' axis.",
+      }
+      y: {
+        type: string,
+        default_value: "",
+        description: "Name of the state interface with force values on 'y' axis.",
+      }
+      z: {
+        type: string,
+        default_value: "",
+        description: "Name of the state interface with force values on 'z' axis.",
+      }
+  friction_coefficient: {
+    type: double,
+    default_value: 0.0,
+    description: "SlippingAvoidance gain.",
+  }
+  min_desired_normal_force: {
+    type: double,
+    default_value: 0.1, #Newton
+    description: "Desired normal force when tangential forces are zero.",
+  }
+  is_chained_mode: {
+    type: bool,
+    default_value: false,
+    description: "Set if the slipping_avoidance is in a chained mode control. 
+    Params next_controller_name, command_interface_name and command_interface_type have to be set."
+  }
+  next_controller_names: {
+    type: string_array,
+    default_value: [],
+    description: "Name of the next controllers in the chain of controllers. 
+      Follow the chain levels: enter the names from the highest level to the lowest level ",
+    read_only: true,
+  }
+  command_interface_name: {
+    type: string,
+    default_value: "",
+    description: "Specifies command_interface_names used by the controller in the chain.",
+    read_only: true,
+  }
+  command_interface_type: {
+    type: string,
+    default_value: "",
+    description: "Type of the interface used by the controller in the chain for writing commands to the hardware.",
+    read_only: true,
+  }
+  use_aruco: {
+    type: bool,
+    default_value: false,
+    description: "Set if the slipping_avoidance uses ArUco Marker. 
+      Param camera_name have to be set."
+  }
+  camera_name: {
+    type: string,
+    default_value: "camera",
+    description: "Specifies camera_frame used by the slipping_avoidance to calculate TF2 trasformation."
+  }
+  
+  

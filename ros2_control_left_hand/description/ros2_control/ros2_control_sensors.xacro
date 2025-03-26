@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+     <!-- macro for sensor in ros2_control-->
+    <xacro:macro name="ros2_control_force_sensors" params="
+        serial_port
+        baudrate
+    ">
+        <ros2_control name="fts3_sensors" type="sensor" is_async="true">
+            <hardware>
+                <plugin>ros2_control_fingertip_sensors/FingertipSensorsHardware</plugin>
+                <param name="serial_port">${serial_port}</param>
+                <param name="baudrate">${baudrate}</param>
+            </hardware>
+
+            <sensor name="thumb_force_sensor">
+                <state_interface name="force.x"/>
+                <state_interface name="force.y"/>
+                <state_interface name="force.z"/>
+            </sensor>
+            <sensor name="index_force_sensor">
+                <state_interface name="force.x"/>
+                <state_interface name="force.y"/>
+                <state_interface name="force.z"/>
+            </sensor>
+            <sensor name="middle_force_sensor">
+                <state_interface name="force.x"/>
+                <state_interface name="force.y"/>
+                <state_interface name="force.z"/>
+            </sensor>
+            <sensor name="ring_force_sensor">
+                <state_interface name="force.x"/>
+                <state_interface name="force.y"/>
+                <state_interface name="force.z"/>
+            </sensor>
+            <sensor name="small_force_sensor">
+                <state_interface name="force.x"/>
+                <state_interface name="force.y"/>
+                <state_interface name="force.z"/>
+            </sensor>
+        </ros2_control>
+    </xacro:macro>
+</robot>

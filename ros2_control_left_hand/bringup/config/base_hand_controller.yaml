@@ -1,0 +1,258 @@
+---
+controller_manager:
+  ros__parameters:
+    update_rate: 300  # Hz
+    
+    hand_joint_state_broadcaster:
+      type: hand_joint_state_broadcaster/HandJointStateBroadcaster
+
+    grasping_controller:
+      type: grasping_controller/GraspingController
+
+    fts_broadcaster:
+      type: fingertip_sensors_broadcaster/FingertipSensorsBroadcaster
+    
+    tof_broadcaster:
+      type: palm_sensor_broadcaster/PalmSensorBroadcaster
+
+    
+    # INTEGRATORS
+    thumb_integrator:
+      type: integrator/Integrator
+
+    index_integrator:
+      type: integrator/Integrator      
+
+    middle_integrator:
+      type: integrator/Integrator     
+
+    ring_integrator:
+      type: integrator/Integrator   
+
+    # PROPORTIONALS
+    thumb_force_sensor_proportional:
+      type: proportional/Proportional
+
+    index_force_sensor_proportional:
+      type: proportional/Proportional
+
+    middle_force_sensor_proportional:
+      type: proportional/Proportional
+  
+    ring_force_sensor_proportional:
+      type: proportional/Proportional
+
+    #SLIPPING AVOIDANCE CONTROLLERS 
+    thumb_force_sensor_sa:
+      type: slipping_avoidance/SlippingAvoidance
+
+    index_force_sensor_sa:
+      type: slipping_avoidance/SlippingAvoidance
+
+    middle_force_sensor_sa:
+      type: slipping_avoidance/SlippingAvoidance
+
+    ring_force_sensor_sa:
+      type: slipping_avoidance/SlippingAvoidance    
+
+##########################################################
+
+grasping_controller:
+  ros__parameters:
+    distance_threshold: 70.0   #in mm
+    norm_force_threshold: 0.1   #in N
+    desired_force: 0.1          #in N
+    finger_motors:
+      - thumb_flexion_motor
+      - index_flexion_motor
+#      - middle_flexion_motor
+#      - ring_small_flexion_motor
+    sensor_names:
+      - thumb_force_sensor
+      - index_force_sensor
+#      - middle_force_sensor
+#      - ring_force_sensor    
+      - palm_sensor
+    constant_velocity: 400.0  # in motor_position/s
+
+hand_joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - forearm:1--base:1
+      - palm_axis:1--forearm:1
+      - palmL:1--palm_axis:1
+      - thumb_adduction_motor
+      - thumb_flexion_motor
+      - index_flexion_motor
+      - middle_flexion_motor
+      - ring_small_flexion_motor
+    interfaces: 
+      - position  
+    hand_joints:
+      - forearm:1--base:1
+      - palm_axis:1--forearm:1
+      - palmL:1--palm_axis:1
+      - Thumb_axis--palmL:1
+      - Index_Proximal--palmL:1
+      - Index_Middle--Index_Proximal
+      - Index_Distal--Index_Middle
+      - Small_Proximal--palmL:1
+      - Small_Middle--Small_Proximal
+      - Small_Distal--Small_Middle
+      - Ring_Proximal--palmL:1
+      - Ring_Middle--Ring_Proximal
+      - Ring_Distal--Ring_Middle
+      - Thumb_Methacarpal--Thumb_axis
+      - Thumb_Proximal--Thumb_Methacarpal
+      - Thumb_Distal--Thumb_Proximal
+      - Middle_Proximal--palmL:1
+      - Middle_Middle--Middle_Proximal
+      - Middle_Distal--Middle_Middle
+
+fts_broadcaster:
+  ros__parameters:
+    sensor_names: 
+      - thumb_force_sensor
+      - index_force_sensor
+      - middle_force_sensor
+      - ring_force_sensor
+      - small_force_sensor
+
+tof_broadcaster:
+  ros__parameters:
+    sensor_name: palm_sensor
+
+# INTEGRATORS
+    
+thumb_integrator:
+  ros__parameters:
+    command_interface_name: thumb_flexion_motor
+    command_interface_type: position
+    input_state_interfaces: ["position"]
+    antiwindup: true
+    i_max: 4000.0
+    i_min: 100.0
+
+index_integrator:
+  ros__parameters:
+    command_interface_name: index_flexion_motor
+    command_interface_type: position
+    input_state_interfaces: ["position"]
+    antiwindup: true
+    i_max: 4000.0
+    i_min: 100.0
+
+middle_integrator:
+  ros__parameters:
+    command_interface_name: middle_flexion_motor
+    command_interface_type: position
+    input_state_interfaces: ["position"]
+    antiwindup: true
+    i_max: 4000.0
+    i_min: 100.0
+
+ring_integrator:
+  ros__parameters:
+    command_interface_name: ring_small_flexion_motor
+    command_interface_type: position
+    input_state_interfaces: ["position"]
+    antiwindup: true
+    i_max: 4000.0
+    i_min: 100.0
+
+# PROPORTIONALS
+thumb_force_sensor_proportional:
+  ros__parameters:
+    state_interface_name: thumb_force_sensor
+    command_interface_name: thumb_flexion_motor
+    command_interface_type: position
+    p_gain: 600.0
+    is_chained_mod: true
+    next_controller_name: thumb_integrator
+
+index_force_sensor_proportional:
+  ros__parameters:
+    state_interface_name: index_force_sensor
+    command_interface_name: index_flexion_motor
+    command_interface_type: position
+    p_gain: 600.0
+    is_chained_mod: true
+    next_controller_name: index_integrator
+
+middle_force_sensor_proportional:
+  ros__parameters:
+    state_interface_name: middle_force_sensor
+    command_interface_name: middle_flexion_motor
+    command_interface_type: position
+    p_gain: 600.0
+    is_chained_mod: true
+    next_controller_name: middle_integrator
+
+ring_force_sensor_proportional:
+  ros__parameters:
+    state_interface_name: ring_force_sensor
+    command_interface_name: ring_small_flexion_motor
+    command_interface_type: position
+    p_gain: 600.0
+    is_chained_mod: true
+    next_controller_name: ring_integrator
+
+# SLIPPING AVOIDANCE CONTROLLERS
+thumb_force_sensor_sa: 
+  ros__parameters:
+    state_interface_name: thumb_force_sensor
+    friction_coefficient: 0.4            #bottle friction coefficient
+    min_desired_normal_force: 0.1
+    is_chained_mode: true
+    next_controller_names:
+      - thumb_force_sensor_proportional  #second level controller
+      - thumb_integrator                 #first level controller
+    command_interface_name: thumb_flexion_motor
+    command_interface_type: position
+    use_aruco: false
+    camera_name: "camera1"
+    
+index_force_sensor_sa: 
+  ros__parameters:
+    state_interface_name: index_force_sensor
+    friction_coefficient: 0.4            #bottle friction coefficient
+    min_desired_normal_force: 0.1
+    is_chained_mode: true
+    next_controller_names:
+      - index_force_sensor_proportional  #second level controller
+      - index_integrator                 #first level controller
+    command_interface_name: index_flexion_motor
+    command_interface_type: position
+    use_aruco: false
+    camera_name: "camera2"
+
+middle_force_sensor_sa: 
+  ros__parameters:
+    state_interface_name: middle_force_sensor
+    friction_coefficient: 0.4            #bottle friction coefficient
+    min_desired_normal_force: 0.2
+    is_chained_mode: true
+    next_controller_names:
+      - middle_force_sensor_proportional  #second level controller
+      - middle_integrator                 #first level controller
+    command_interface_name: middle_flexion_motor
+    command_interface_type: position
+    use_aruco: false
+    camera_name: "camera2"
+
+ring_force_sensor_sa: 
+  ros__parameters:
+    state_interface_name: ring_force_sensor
+    friction_coefficient: 0.4            #bottle friction coefficient
+    min_desired_normal_force: 0.2
+    is_chained_mode: true
+    next_controller_names:
+      - ring_force_sensor_proportional  #second level controller
+      - ring_integrator                 #first level controller
+    command_interface_name: ring_small_flexion_motor
+    command_interface_type: position
+    use_aruco: false
+    camera_name: "camera2"
+
+
+# Aggiungi una riga vuota alla fine del file

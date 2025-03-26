@@ -1,0 +1,45 @@
+integrator:
+  command_interface_name: {
+    type: string,
+    default_value: "",
+    description: "Specifies command interface name used by the integrator.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+    }
+  }
+  command_interface_type: {
+    type: string,
+    default_value: "",
+    description: "Type of the interface used by the integrator for writing commands to the hardware.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+    }
+  }
+  input_state_interfaces: {
+    type: string_array,
+    default_value: [],
+    description: "Name of the interfaces used by the integrator getting hardware states.",
+    read_only: true,
+    validation: {
+      not_empty<>: null,
+      size_lt<>: 3,
+    }
+  }
+  antiwindup: {
+        type: bool,
+        default_value: false,
+        description: "Antiwindup functionality."
+      }
+  i_max: {
+        type: double,
+        default_value: 0.0,
+        description: "Upper integral clamp. Only used if antiwindup is activated."
+      }
+  i_min: {
+    type: double,
+    default_value: 0.0,
+    description: "Lower integral clamp. Only used if antiwindup is activated."
+  }    
+  

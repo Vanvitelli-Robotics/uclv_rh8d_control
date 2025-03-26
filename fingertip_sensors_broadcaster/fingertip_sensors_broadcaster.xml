@@ -1,0 +1,8 @@
+<library path="fingertip_sensors_broadcaster">
+  <class name="fingertip_sensors_broadcaster/FingertipSensorsBroadcaster"
+         type="fingertip_sensors_broadcaster::FingertipSensorsBroadcaster" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    This controller publishes the readings of force interfaces from FTS3 Sensors as hand_sensors_interfaces/msg/FTS3Sensors.
+  </description>
+  </class>
+</library>

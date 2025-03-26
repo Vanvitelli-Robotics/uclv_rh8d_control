@@ -1,0 +1,8 @@
+<library path="grasping_controller">
+  <class name="grasping_controller/GraspingController"
+         type="grasping_controller::GraspingController" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    TO DO
+  </description>
+  </class>
+</library>

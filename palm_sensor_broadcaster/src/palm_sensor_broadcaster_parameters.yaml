@@ -1,0 +1,17 @@
+palm_sensor_broadcaster:
+  frame_id: {
+    type: string,
+    default_value: "",
+    description: "Sensor's frame_id in which values are published.",
+  }
+  sensor_name: {
+    type: string,
+    default_value: "",
+    description: "Name of the sensor used as prefix for interfaces if there are no individual interface names defined.
+    If used, standard interface names for a time of flight sensor will be used: ``<sensor_name>/distance",
+  }
+  interface_name: {
+    type: string,
+    default_value: "distance",
+    description: "Name of the state interface with distance values.",
+  }

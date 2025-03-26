@@ -1,0 +1,8 @@
+<library path="integrator">
+  <class name="integrator/Integrator"
+         type="integrator::Integrator" base_class_type="controller_interface::ChainableControllerInterface">
+  <description>
+    Integrator ros2_control.
+  </description>
+  </class>
+</library>

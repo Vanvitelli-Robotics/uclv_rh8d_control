@@ -1,0 +1,8 @@
+<library path="proportional">
+  <class name="proportional/Proportional"
+         type="proportional::Proportional" base_class_type="controller_interface::ChainableControllerInterface">
+  <description>
+    Proportional ros2_control.
+  </description>
+  </class>
+</library>

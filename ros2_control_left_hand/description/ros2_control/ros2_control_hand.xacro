@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- macro for ros2_control-->
+    <xacro:macro name="ros2_control_hand" params="
+        name
+        serial_port
+        baudrate
+        protocol_version            
+        active_palm_sensor      
+    ">
+
+        <ros2_control name="${name}" type="system">
+            <hardware>
+                <plugin>ros2_control_left_hand/leftHandSystemHardware</plugin>
+                <param name="serial_port">${serial_port}</param>
+                <param name="baudrate">${baudrate}</param>
+                <param name="protocol_version">${protocol_version}</param>
+                <param name="active_palm_sensor">${active_palm_sensor}</param>
+            </hardware>
+             <joint name="forearm:1--base:1">                        <!-- wrist rotation motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>  
+            <joint name="palm_axis:1--forearm:1">                        <!-- wrist adduction motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="palmL:1--palm_axis:1">                          <!-- wrist flexion motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+             <joint name="thumb_adduction_motor">                       <!-- thumb adduction motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="thumb_flexion_motor">                          <!-- thumb flexion motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="index_flexion_motor">                          <!-- Index Flexion Motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="middle_flexion_motor">                         <!-- Midlle Flexion Motor-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>
+            <joint name="ring_small_flexion_motor">                     <!-- ring and small flexion-->
+                <command_interface name="position"/>
+                <state_interface name="position"/>
+                <state_interface name="velocity"/>
+            </joint>            
+             <sensor name="palm_sensor">
+                <state_interface name="distance"/>
+            </sensor>
+        </ros2_control>
+    </xacro:macro>
+</robot>

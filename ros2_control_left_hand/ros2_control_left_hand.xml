@@ -1,0 +1,17 @@
+<library path="ros2_control_left_hand">
+  <class name="ros2_control_left_hand/leftHandSystemHardware"
+         type="ros2_control_left_hand::leftHandSystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control left hand RH8D Seed Robotics using a system hardware interface-type. It uses position command and positon and velocity state interface. 
+    </description>
+  </class>
+  <class name="ros2_control_fingertip_sensors/FingertipSensorsHardware"
+         type="ros2_control_fingertip_sensors::FingertipSensorsHardware"
+         base_class_type="hardware_interface::SensorInterface">
+    <description>
+      The ros2_control Fingertip Sensor using external Force Torque Sensor where it is separate from the hand.
+      It is used a sensor hardware interface-type.
+    </description>
+  </class>
+</library>

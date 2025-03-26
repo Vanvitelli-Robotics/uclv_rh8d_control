@@ -1,0 +1,8 @@
+<library path="slipping_avoidance">
+  <class name="slipping_avoidance/SlippingAvoidance"
+         type="slipping_avoidance::SlippingAvoidance" base_class_type="controller_interface::ControllerInterface">
+  <description>
+    SlippingAvoidance in ros2_control.
+  </description>
+  </class>
+</library>

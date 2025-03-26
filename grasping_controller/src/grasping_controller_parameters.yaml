@@ -1,0 +1,29 @@
+grasping_controller:
+  distance_threshold:
+    type: double
+    default_value: 0.0
+    description: "Distance Treshold that active the grasping controller"
+  norm_force_threshold:
+    type: double
+    default_value: 0.0
+    description: "Norm Force Treshold that disactive the finger motors"
+  desired_force:
+    type: double
+    default_value: 0.0
+    description: "Desired norm force when proportionals are activated"
+  constant_velocity:
+    type: double
+    default_value: 0.0
+    description: "constant velocity at which the fingers are closed"
+  finger_motors: {
+    type: string_array,
+    default_value: [],
+    description: "Name of the motors to control" ,
+  }
+  sensor_names: {
+    type: string_array,
+    default_value: [],
+    description: "Name of the sensors used as prefix for interfaces if there are no individual interface names defined.
+    If used, standard interface names for a 3D FTS will be used: ``<sensor_name>/force.x, ..., <sensor_name>/force.z``",
+  }
+  
